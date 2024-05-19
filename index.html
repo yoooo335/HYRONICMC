@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Primary Meta Tags -->
+        <title>HyronicMC</title>
+        <meta name="title" content="HyronicMC" />
+        <meta
+            name="description"
+            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam sem fringilla ut morbi. Urna duis convallis convallis tellus id interdum velit."
+        />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourserver.com/" />
+        <meta property="og:title" content="YourServer" />
+        <meta
+            property="og:description"
+            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam sem fringilla ut morbi. Urna duis convallis convallis tellus id interdum velit."
+        />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://yourserver.com/" />
+        <meta property="twitter:title" content="YourServer" />
+        <meta
+            property="twitter:description"
+            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam sem fringilla ut morbi. Urna duis convallis convallis tellus id interdum velit."
+        />
+        <meta name="theme-color" content="#ffad32" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <main>
+            <section class="hero">
+                <h1>
+                    <span class="sr-only">YourServer</span
+                    ><img
+                        src="images/logo.png"
+                        alt="yourserver logo"
+                        class="logo_pulse"
+                    />
+                </h1>
+            </section>
+            <section class="container">
+                <button onclick="copyToClipboard()" class="online-players">
+                    Join another
+                    <strong><span id="player-count">14</span></strong> players
+                    playing!
+                </button>
+            </section>
+            <section class="vote-links container">
+                <a href="" target="_blank">
+                    <img
+                        src="images/icons/discord.svg"
+                        alt=""
+                        class="icon"
+                    />Discord</a
+                >
+                <a href="" target="_blank">
+                    <img src="images/icons/vote.svg" alt="" class="icon" />
+                    Vote</a
+                >
+                <a href="" target="_blank"
+                    ><img
+                        src="images/icons/store.svg"
+                        alt=""
+                        class="icon"
+                    />Store</a
+                >
+            </section>
+        </main>
+        <footer>
+            <div class="container">
+                <div class="footer-info">
+                    <p>
+                        &copy; 2024 HyronicMC <br />
+                        <a href="">Privacy Policy</a> |
+                        <a href="">Terms of Service</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+        <script>
+            // Replace 'your-server-ip' with the actual IP or server address
+            const serverIP = "HyronicMC.gg";
+
+            function copyToClipboard() {
+                const textarea = document.createElement("textarea");
+                textarea.value = serverIP;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textarea);
+            }
+
+            // Function to update the player count
+            function updatePlayerCount() {
+                fetch(`https://api.mcsrvstat.us/2/${serverIP}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const playerCount = data.players.online;
+                        document.getElementById("player-count").textContent =
+                            playerCount;
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching player count:", error);
+                    });
+            }
+
+            updatePlayerCount();
+            setInterval(updatePlayerCount, 60000);
+        </script>
+    </body>
+</html>
